@@ -2,10 +2,10 @@ const config = require("../config/authentication.config")
 const db = require("../models")
 const { uuid } = require('uuid')
 const moment = require("moment")
-const User = db.usuario;
+const User = db.usuario
 
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+var jwt = require("jsonwebtoken")
+var bcrypt = require("bcryptjs")
 
 exports.signup = (req, res) => {
   const user = new User({
@@ -14,15 +14,15 @@ exports.signup = (req, res) => {
     email: req.body.email,
     telefones: req.body.telefones,
     senha: bcrypt.hashSync(req.body.senha, 8)
-  });
+  })
 
-  var token = jwt.sign({ id: user.id }, config.secret);
+  var token = jwt.sign({ id: user.id }, config.secret)
   user.token = token
   
   user.save((err, user) => {
     if (err) {
-      res.status(500).send({ mensagem: err });
-      return;
+      res.status(500).send({ mensagem: err })
+      return
     }else{
       res.status(201).send({
         id: user._id,
@@ -33,9 +33,9 @@ exports.signup = (req, res) => {
         telefones: user.telefones,
         ultimo_login: user.ultimo_login,
         token: user.token
-      });
+      })
     }
-  });
+  })
 }
 
 exports.signin = (req, res) => {
@@ -44,21 +44,21 @@ exports.signin = (req, res) => {
   })
     .exec((err, user) => {
       if (err) {
-        res.status(500).send({ mensagem: err });
-        return;
+        res.status(500).send({ mensagem: err })
+        return
       }
 
       if (!user) {
-        return res.status(401).send({ mensagem: "Usuário e/ou senha inválidos." });
+        return res.status(401).send({ mensagem: "Usuário e/ou senha inválidos." })
       }
 
       var passwordIsValid = bcrypt.compareSync(
         req.body.senha,
         user.senha
-      );
+      )
 
       if (!passwordIsValid) {
-        return res.status(401).send({ mensagem: "Usuário e/ou senha inválidos." });
+        return res.status(401).send({ mensagem: "Usuário e/ou senha inválidos." })
       }
 
       user.ultimo_login = moment()
@@ -72,6 +72,6 @@ exports.signin = (req, res) => {
         data_atualizacao: user.data_atualizacao,
         ultimo_login: user.ultimo_login,
         token: user.token
-      });
-    });
+      })
+    })
 }

@@ -6,18 +6,18 @@ const checkEmail = (req, res, next) => {
             email: req.body.email
         }).exec((err, user) => {
         if (err) {
-            res.status(500).send({ message: err });
-            return;
+            res.status(500).send({ message: err })
+            return
         }
 
         if (user) {
-            res.status(400).send({ message: "E-mail já existente." });
-            return;
+            res.status(400).send({ message: "E-mail já existente." })
+            return
         }
 
-        next();
+        next()
 
-    });
+    })
 }
   
 const checkSignUp = {

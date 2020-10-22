@@ -7,9 +7,9 @@ module.exports = function(app) {
     res.header(
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
+    )
+    next()
+  })
 
   app.post(
     "/api/auth/signup",
@@ -18,4 +18,4 @@ module.exports = function(app) {
   )
 
   app.post("/api/auth/signin", controller.signin)
-};
+}

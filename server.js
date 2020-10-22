@@ -6,7 +6,7 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-db.connect
+db.connect(process.env.environment ? 'test' : 'users')
 
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);

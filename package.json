@@ -4,7 +4,7 @@
   "description": "API de Usuários",
   "main": "server.js",
   "scripts": {
-    "test": "mocha 'tests/routes.test.js'"
+    "test": "export environment=dev && mocha --exit 'tests/routes.test.js'"
   },
   "repository": {
     "type": "git",

@@ -7,13 +7,13 @@ module.exports = function(app) {
     res.header(
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
+    )
+    next()
+  })
 
   app.get(
     "/api/user/:id",
     [authenticationJwt.checkToken],
     user.fetchUser
-  );
-};
+  )
+}
